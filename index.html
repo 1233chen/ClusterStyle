@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Deformable Neural Radiance Fields creates free-viewpoint portraits (nerfies) from casually captured videos.">
+  <meta name="keywords" content="Nerfies, D-NeRF, NeRF">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ClusterStyle: Modeling Intra-Style Diversity with Prototypical Clustering for Stylized Motion Generation</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="https://keunhong.com">
+      <span class="icon">
+          <i class="fas fa-home"></i>
+      </span>
+      </a>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          More Research
+        </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="https://hypernerf.github.io">
+            HyperNeRF
+          </a>
+          <a class="navbar-item" href="https://nerfies.github.io">
+            Nerfies
+          </a>
+          <a class="navbar-item" href="https://latentfusion.github.io">
+            LatentFusion
+          </a>
+          <a class="navbar-item" href="https://photoshape.github.io">
+            PhotoShape
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">ClusterStyle: Modeling Intra-Style Diversity with Prototypical Clustering for Stylized Motion Generation</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://keunhong.com">Kerui Chen</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="https://utkarshsinha.com">Jianrong Zhang</a><sup>2</sup>,</span>
+            <span class="author-block">
+              <a href="https://jonbarron.info">Yi Yang</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="http://sofienbouaziz.com">Hehe Fan</a><sup>1</sup>,
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Zhejiang University,</span>
+            <span class="author-block"><sup>2</sup>University of Technology Sydney</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/pdf/2011.12948"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2011.12948"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Video Link. -->
+              <span class="link-block">
+                <a href="https://www.youtube.com/watch?v=MrKrnHhk8IA"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/google/nerfies"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+              <!-- Dataset Link. -->
+              <span class="link-block">
+                <a href="https://github.com/google/nerfies/releases/tag/0.1"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="far fa-images"></i>
+                  </span>
+                  <span>Data</span>
+                  </a>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Paper intro. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <div class="publication-video" style="height: auto;padding-bottom: 0;">
+          <img src="intro.png" alt="Introduction" />
+        </div>
+      </div>
+    </div>
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Existing stylized motion generation models have shown their remarkable ability to understand specific style information from the style motion, and insert it into the content motion. 
+            However, capturing intra-style diversity, where a single style should correspond to diverse motion variations, remains a significant challenge. 
+            In this paper, we propose a clustering-based framework, <b><i>ClusterStyle</i></b>, to address this limitation.
+            First, instead of learning an independent embedding from each style motion, we leverage a set of prototypes to effectively model diverse style patterns across motions belonging to the same style category. 
+            We consider two types of style diversity: global-level diversity among style motions of the same category, and local-level diversity within the temporal dynamics of motion sequences. 
+            These components jointly shape two style embedding spaces, \ie, global and local, optimized via alignment with non-learnable prototype anchors. 
+            Furthermore, we augment the pretrained text-to-motion generation model with the Stylistic Modulation Adapter (SMA) to integrate the style features. 
+            Extensive experiments demonstrate that our approach outperforms existing state-of-the-art models in stylized motion generation and motion style transfer. 
+            The code will be released upon acceptance.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Overview</h2>
+      </div>
+    </div>
+
+    <!-- Paper method. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full">
+        <div class="publication-video" style="height: auto;padding-bottom: 0;">
+          <img src="method.png" alt="Introduction" style="width: 100%" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Animation. -->
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Stylization Motion Generation</h2>
+
+        <div class="content has-text-justified">
+          <p style="text-align: center; font-size: 1.3em !important;">
+            <b>Content Text:</b>
+            A person is walking backward.
+          </p>
+        
+          <div class="columns is-centered" style="text-align: center;">
+            <!-- First method -->
+            <div class="column">
+              <p><b>Style Motion</b></p>
+              <img src="./gif/style1.gif" alt="Style" style="max-width: 100%;">
+            </div>
+
+            <!-- Second method -->
+            <div class="column">
+              <p><b>Ours</b></p>
+              <img src="./gif/ours1.gif" alt="ReMoDiffuse" style="max-width: 100%;">
+            </div>
+
+            <!-- Ours -->
+            <div class="column">
+              <p><b>SMooDi</b></p>
+              <img src="./gif/smoodi1.gif" alt="Ours" style="max-width: 100%;">
+            </div>
+          </div>
+        </div>
+        
+        <hr style="margin: 30px 0;">
+        
+        <div class="content has-text-justified">
+          <p style="text-align: center; font-size: 1.3em !important;">
+            <b>Content Text:</b>
+            A person walks in a circle.
+          </p>
+        
+          <div class="columns is-centered" style="text-align: center;">
+            <!-- First method -->
+            <div class="column">
+              <p><b>Style Motion</b></p>
+              <img src="./gif/style2.gif" alt="Style" style="max-width: 100%;">
+            </div>
+
+            <!-- Second method -->
+            <div class="column">
+              <p><b>Ours</b></p>
+              <img src="./gif/ours2.gif" alt="ReMoDiffuse" style="max-width: 100%;">
+            </div>
+
+            <!-- Ours -->
+            <div class="column">
+              <p><b>SMooDi</b></p>
+              <img src="./gif/smoodi2.gif" alt="Ours" style="max-width: 100%;">
+            </div>
+          </div>
+        </div>
+        
+        <hr style="margin: 30px 0;">
+        
+        <div class="content has-text-justified">
+          <p style="text-align: center; font-size: 1.3em !important;">
+            <b>Content Text:</b>
+            A person is walking forward, and then sit down.
+          </p>
+        
+          <div class="columns is-centered" style="text-align: center;">
+            <!-- First method -->
+            <div class="column">
+              <p><b>Style Motion</b></p>
+              <img src="./gif/style4.gif" alt="Style" style="max-width: 100%;">
+            </div>
+
+            <!-- Second method -->
+            <div class="column">
+              <p><b>Ours</b></p>
+              <img src="./gif/ours4.gif" alt="ReMoDiffuse" style="max-width: 100%;">
+            </div>
+
+            <!-- Ours -->
+            <div class="column">
+              <p><b>SMooDi</b></p>
+              <img src="./gif/smoodi4.gif" alt="Ours" style="max-width: 100%;">
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    
+    <div></div>
+    <hr style="margin: 30px 0;">
+    <div></div>
+    
+    <div>
+      <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Motion Style Transfer</h2>
+        <div class="content has-text-justified">
+        
+          <div class="columns is-centered" style="text-align: center;">
+            <!-- First method -->
+            <div class="column">
+              <p><b>Content Motion</b></p>
+              <img src="./gif/transfer_content0.gif" alt="Style" style="max-width: 100%;">
+            </div>
+
+            <!-- Second method -->
+            <div class="column">
+              <p><b>Ours</b></p>
+              <img src="./gif/transfer_pred0.gif" alt="ReMoDiffuse" style="max-width: 100%;">
+            </div>
+
+            <!-- Ours -->
+            <div class="column">
+              <p><b>Style Motion</b></p>
+              <img src="./gif/transfer_style0.gif" alt="Ours" style="max-width: 100%;">
+            </div>
+          </div>
+        </div>
+        
+        <hr style="margin: 30px 0;">
+        
+        <div class="content has-text-justified">
+        
+          <div class="columns is-centered" style="text-align: center;">
+            <!-- First method -->
+            <div class="column">
+              <p><b>Content Motion</b></p>
+              <img src="./gif/transfer_content1.gif" alt="Style" style="max-width: 100%;">
+            </div>
+
+            <!-- Second method -->
+            <div class="column">
+              <p><b>Ours</b></p>
+              <img src="./gif/transfer_pred1.gif" alt="ReMoDiffuse" style="max-width: 100%;">
+            </div>
+
+            <!-- Ours -->
+            <div class="column">
+              <p><b>Style Motion</b></p>
+              <img src="./gif/transfer_style1.gif" alt="Ours" style="max-width: 100%;">
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+    <!--/ Animation. -->
+
+  </div>
+</section>
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{park2021nerfies,
+  author    = {Park, Keunhong and Sinha, Utkarsh and Barron, Jonathan T. and Bouaziz, Sofien and Goldman, Dan B and Seitz, Steven M. and Martin-Brualla, Ricardo},
+  title     = {Nerfies: Deformable Neural Radiance Fields},
+  journal   = {ICCV},
+  year      = {2021},
+}</code></pre>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link"
+         href="./static/videos/nerfies_paper.pdf">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://github.com/keunhong" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <p>
+            This means you are free to borrow the <a
+              href="https://github.com/nerfies/nerfies.github.io">source code</a> of this website,
+            we just ask that you link back to this page in the footer.
+            Please remember to remove the analytics code included in the header of the website which
+            you do not want on your website.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
